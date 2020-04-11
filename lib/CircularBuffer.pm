@@ -23,7 +23,7 @@ sub new {
 sub put {
     my ( $self, $data ) = @_;
     if ( $self->{full} ) {
-        return 0;
+        return undef;
     }
     else {
         $self->{data}->[ $self->{in}++ ] = $data;
@@ -42,7 +42,7 @@ sub get {
     my $data;
 
     if ( $self->{in} == $self->{out} && !$self->{full} ) {
-        return;
+        return undef;
     }
     else {
         $data = $self->{data}->[ $self->{out}++ ];

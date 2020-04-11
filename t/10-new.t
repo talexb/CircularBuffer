@@ -34,7 +34,7 @@ use CircularBuffer;
             ok( $buffer->put($value), "Store $value" );
         }
         is( $buffer->put( $size + 1 ),
-            0, "Unable to store one more than capacity" );
+            undef, "Unable to store one more than capacity" );
 
     }
     done_testing;
