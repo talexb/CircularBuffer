@@ -4,11 +4,18 @@ use warnings;
 use strict;
 
 our $VERSION = '0.01';
-my $size = 10;
+my $default_size = 10;
 
 sub new {
-    my $class = shift;
-    my $self = { in => 0, out => 0, full => 0, data => [] };
+    my ( $class, $args ) = @_;
+
+    my $self = {
+      in   => 0,
+      out  => 0,
+      full => 0,
+      data => [],
+      size => $args->{size} // $default_size
+    };
     bless $self, $class;
     return $self;
 }
@@ -20,7 +27,7 @@ sub put {
     }
     else {
         $self->{data}->[ $self->{in}++ ] = $data;
-        if ( $self->{in} == $size ) {
+        if ( $self->{in} == $self->{size} ) {
             $self->{in} = 0;
         }
         if ( $self->{in} == $self->{out} ) {
@@ -39,7 +46,7 @@ sub get {
     }
     else {
         $data = $self->{data}->[ $self->{out}++ ];
-        if ( $self->{out} == $size ) {
+        if ( $self->{out} == $self->{size} ) {
             $self->{out} = 0;
         }
         $self->{full} = 0;
@@ -70,7 +77,8 @@ Perhaps a little code snippet.
 
 =head2 new
 
-This creates a new circular buffer. The stock size is 10 entries.
+This creates a new circular buffer. The stock size is 10 entries, but this size
+can be specified in the constructor.
 
 =head2 put
 
