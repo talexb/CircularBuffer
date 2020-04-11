@@ -1,0 +1,6 @@
+Revision history for CircularBuffer
+
+0.01    2009-November-26 22:15
+	First version, with some work remaining from the stock README, but
+        clean enough after thrashing by perltidy and perlcritic. 276 tests.
+
