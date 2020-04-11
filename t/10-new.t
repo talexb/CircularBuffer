@@ -4,6 +4,8 @@ use Test::More;
 
 use CircularBuffer;
 
+#  Try default size of ten.
+
 {
     my $buffer = CircularBuffer->new;
     ok(defined($buffer),'Buffer created');
@@ -12,26 +14,28 @@ use CircularBuffer;
     ok(!defined($data),'New buffer is empty');
 }
 
+#  Try a variety of larger sizes.
+
 {
-    my $size   = 20;
-    my $buffer = CircularBuffer->new( { size => $size } );
-    ok( defined($buffer), 'Buffer created' );
+    foreach my $size ( 20, 200, 2_000, 20_000 ) {
 
-    if ( defined $buffer ) {
-      my $data = $buffer->get;
-      ok( !defined($data), 'New buffer is empty' );
+        my $buffer = CircularBuffer->new( { size => $size } );
+        ok( defined($buffer), 'Buffer created' );
+
+        if ( defined $buffer ) {
+            my $data = $buffer->get;
+            ok( !defined($data), 'New buffer is empty' );
+        }
+
+        #  Try to fill up new, non-standard sized buffer.
+
+        for my $value ( 1 .. $size ) {
+
+            ok( $buffer->put($value), "Store $value" );
+        }
+        is( $buffer->put( $size + 1 ),
+            0, "Unable to store one more than capacity" );
+
     }
-
-    #  Try to fill up new, non-standard sized buffer.
-
-    for my $value ( 1 .. $size ) {
-
-      ok( $buffer->put($value), "Store $value" );
-    }
-    is( $buffer->put( $size + 1 ), 0, "Unable to store one more than capacity" );
-
     done_testing;
 }
-
-
-
