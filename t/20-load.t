@@ -22,7 +22,7 @@ use CircularBuffer;
         is( $result, 1, "Stored $_" );
     }
     $result = $buffer->put(11);
-    ok( !defined($result), "Failed to store 11" );
+    is( $result, 0, "Failed to store 11" );
 
     #  Pull the data out, and make sure it's in the same order as it went in ..
 
