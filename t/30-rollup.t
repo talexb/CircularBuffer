@@ -1,6 +1,6 @@
 #!perl -T
 
-use Test::More tests => 122;
+use Test::More;
 
 use CircularBuffer;
 
@@ -36,4 +36,5 @@ use CircularBuffer;
         $result = $buffer->get;
         ok( !defined($result), "Buffer empty when it should be" );
     }
+    done_testing;
 }
