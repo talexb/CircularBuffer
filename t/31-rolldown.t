@@ -22,7 +22,7 @@ use CircularBuffer;
 
     for my $outter ( 1 .. 10 ) {
 
-	$outter = 11 - $outter;
+        $outter = 11 - $outter;
         for my $inner ( 1 .. $outter ) {
 
             $result = $buffer->put($inner);

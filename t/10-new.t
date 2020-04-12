@@ -8,10 +8,10 @@ use CircularBuffer;
 
 {
     my $buffer = CircularBuffer->new;
-    ok(defined($buffer),'Buffer created');
+    ok( defined($buffer), 'Buffer created' );
 
     my $data = $buffer->get;
-    ok(!defined($data),'New buffer is empty');
+    ok( !defined($data), 'New buffer is empty' );
 }
 
 #  Try a variety of larger sizes.
