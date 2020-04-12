@@ -56,7 +56,7 @@ sub get {
 
 =head1 NAME
 
-CircularBuffer - The great new CircularBuffer!
+CircularBuffer - A simple circular buffer object
 
 =head1 VERSION
 
@@ -64,14 +64,23 @@ Version 0.01
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
+This module implements a circular buffer, something also known as a FIFO (First
+In, First Out) buffer.
 
 Perhaps a little code snippet.
 
     use CircularBuffer;
 
-    my $foo = CircularBuffer->new();
+    my $cb = CircularBuffer->new();
     ...
+    $cb->put ( $some_data ) or die "Failed to store $data";
+    ...
+    my $this_data = $cb->get;
+    if ( defined $this_data ) {
+        #  Handle this data ..
+    } else {
+        #  There was no data in the buffer ..
+    }
 
 =head1 METHODS
 
@@ -82,12 +91,12 @@ can be specified in the constructor.
 
 =head2 put
 
-This puts something into the circular buffer.
+This puts a single object into the circular buffer.
 Returns 1 on success, 0 on failure.
 
 =head2 get
 
-This gets the first available itm from the circular buffer.
+This gets the first available object from the circular buffer.
 Returns data on success, undef on failure.
 
 =head1 AUTHOR
