@@ -9,12 +9,25 @@ my $default_size = 10;
 sub new {
     my ( $class, $args ) = @_;
 
+    #  A size of less than one (zero, or a negative number) doesn't make sense.
+    #  Similarly, a non-integer size doesn't make sense.
+
+    my $size = $default_size;
+    if ( exists $args->{size} ) {
+
+        if ( $args->{size} < 1 ) { return undef; }
+        else {
+
+            $size = int( $args->{size} ) // $default_size;
+        }
+    }
+
     my $self = {
       in   => 0,
       out  => 0,
       full => 0,
       data => [],
-      size => $args->{size} // $default_size
+      size => $size,
     };
     bless $self, $class;
     return $self;

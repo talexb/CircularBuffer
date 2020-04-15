@@ -37,5 +37,13 @@ use CircularBuffer;
             0, "Unable to store one more than capacity" );
 
     }
+}
+
+#  Try to create a zero size buffer.
+
+{
+    my $buffer = CircularBuffer->new( { size => 0 } );
+    ok( !defined($buffer), 'Buffer not created w/ zero size' );
+
     done_testing;
 }
