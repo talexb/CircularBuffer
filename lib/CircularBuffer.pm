@@ -146,7 +146,16 @@ Returns 1 on success, 0 on failure.
 =head2 get
 
 This gets the first available object from the circular buffer.
-Returns data on success, undef on failure.
+Returns data on success, undef on an empty buffer.
+
+=head2 space
+
+This returns how much space there is in the buffer.
+If the buffer's full, the answer is zero.
+If the buffer's empty, the answer is the size of the buffer.
+Otherwise, the space available is calculated based on the in/out pointers, and
+which one is less than the other.
+Returns the space available.
 
 =head1 AUTHOR
 

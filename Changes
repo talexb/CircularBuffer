@@ -1,6 +1,7 @@
 Revision history for CircularBuffer
 
-0.01    2009-November-26 22:15
-	First version, with some work remaining from the stock README, but
-        clean enough after thrashing by perltidy and perlcritic. 276 tests.
+0.01    2020-April-17 22:15
+	First version, after getting a few things sorted out with sizing and tests.
 
+0.02    2020-Later
+    Add ability to handle multiple put values in a single call.
