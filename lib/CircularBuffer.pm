@@ -45,7 +45,9 @@ sub put {
 
         if ( @array > $self->space ) { return 0; }
 
-        foreach my $data (@array) {
+        #  Don't store the undef value.
+
+        foreach my $data (grep { defined } @array) {
 
             $self->{data}->[ $self->{in}++ ] = $data;
             if ( $self->{in} == $self->{size} ) {
@@ -151,7 +153,9 @@ can be specified in the constructor.
 
 =head2 put
 
-This puts a single object into the circular buffer.
+This puts one to many objects into the circular buffer.
+Note that, because the get function uses undef to signal that there is no data
+left in the buffer, it's not possible to store the undef value in a buffer.
 Returns 1 on success, 0 on failure.
 
 =head2 get
