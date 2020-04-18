@@ -3,7 +3,7 @@ package CircularBuffer;
 use warnings;
 use strict;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 my $default_size = 10;
 
 sub new {
@@ -65,6 +65,42 @@ sub get {
         $self->{full} = 0;
     }
     return $data;
+}
+
+sub space {
+    my ($self) = @_;
+    my $space;
+
+    if ( $self->{full} ) {
+    
+        #  If it's full, there's no space.
+
+        $space = 0;
+    }
+    elsif ( $self->{in} == $self->{out} ) {
+
+        #  If it's not full, and the pointers point to the same place, there's
+        #  all the space.
+
+        $space = $self->{size};
+
+    } else {
+
+        #  If the in pointer is below the out pointer, the only the space
+        #  between the in and out are free; otherwise, everything outside that
+        #  space is free.
+
+        if ( $self->{in} < $self->{out} ) {
+
+            $space = ( $self->{out} - $self->{in} );
+
+        } else {
+
+            $space = $self->{size} - ( $self->{in} - $self->{out} );
+        }
+    }
+
+    return ( $space );
 }
 
 =head1 NAME
