@@ -99,9 +99,9 @@ sub space {
 
     } else {
 
-        #  If the in pointer is below the out pointer, the only the space
-        #  between the in and out are free; otherwise, everything outside that
-        #  space is free.
+        #  If the in pointer is below the out pointer, only the space between
+        #  the in and out pointers is free; otherwise, everything outside the
+        #  pointers is free.
 
         if ( $self->{in} < $self->{out} ) {
 
