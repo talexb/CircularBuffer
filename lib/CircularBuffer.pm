@@ -34,17 +34,28 @@ sub new {
 }
 
 sub put {
-    my ( $self, $data ) = @_;
+    my ( $self, @array ) = @_;
+
     if ( $self->{full} ) {
         return 0;
     }
     else {
-        $self->{data}->[ $self->{in}++ ] = $data;
-        if ( $self->{in} == $self->{size} ) {
-            $self->{in} = 0;
-        }
-        if ( $self->{in} == $self->{out} ) {
-            $self->{full} = 1;
+
+        #  Let's make sure there's space.
+
+        if ( @array > $self->space ) { return 0; }
+
+        foreach my $data (@array) {
+
+            $self->{data}->[ $self->{in}++ ] = $data;
+            if ( $self->{in} == $self->{size} ) {
+
+                $self->{in} = 0;
+            }
+            if ( $self->{in} == $self->{out} ) {
+
+                $self->{full} = 1;
+            }
         }
     }
     return 1;
